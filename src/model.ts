@@ -1,7 +1,6 @@
 export interface Source {
   id: string;
   name: string;
-  startMonth: string;
 }
 
 export interface Snapshot {
@@ -87,15 +86,15 @@ export function parseAmount(value: string): number | null {
   return cents;
 }
 
-export function activeSources(data: SavingsData, month: string): Source[] {
-  return data.sources.filter((source) => source.startMonth <= month);
+export function sourcesForMonth(data: SavingsData): Source[] {
+  return data.sources;
 }
 
 export function actualTotal(
   data: SavingsData,
   snapshot: Snapshot,
 ): number | null {
-  const sources = activeSources(data, snapshot.month);
+  const sources = sourcesForMonth(data);
   if (
     !sources.length ||
     sources.some((source) => !Object.hasOwn(snapshot.balances, source.id))
@@ -174,7 +173,6 @@ export function parseSavings(text: string): SavingsData {
       typeof item.name !== "string" ||
       !item.name.trim() ||
       item.name.length > 60 ||
-      !isMonth(item.startMonth) ||
       ids.has(item.id) ||
       names.has(item.name.trim().toLowerCase())
     ) {
@@ -182,7 +180,7 @@ export function parseSavings(text: string): SavingsData {
     }
     ids.add(item.id);
     names.add(item.name.trim().toLowerCase());
-    return { id: item.id, name: item.name.trim(), startMonth: item.startMonth };
+    return { id: item.id, name: item.name.trim() };
   });
   const months = new Set<string>();
   const snapshots: Snapshot[] = value.snapshots.map((item: unknown) => {
@@ -201,9 +199,7 @@ export function parseSavings(text: string): SavingsData {
     for (const [id, balance] of entries) {
       if (
         !validCents(balance) ||
-        !sources.some(
-          (source) => source.id === id && source.startMonth <= month,
-        )
+        !sources.some((source) => source.id === id)
       ) {
         return invalid();
       }

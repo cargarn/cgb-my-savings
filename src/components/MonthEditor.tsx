@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from "react";
 import {
-  activeSources,
   money,
   monthLabel,
   parseAmount,
+  sourcesForMonth,
   type SavingsData,
   type Snapshot,
 } from "../model";
@@ -55,7 +55,7 @@ export default function MonthEditor({
       : "",
   );
   const [error, setError] = useState<unknown>(null);
-  const sources = activeSources(data, month);
+  const sources = sourcesForMonth(data);
 
   function apply(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

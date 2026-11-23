@@ -57,6 +57,30 @@ describe("savings dashboard", () => {
     expect(writes[0].snapshots[0].predicted).toBe(12_000);
   });
 
+  it("makes a new category available when editing an earlier month", async () => {
+    const user = userEvent.setup();
+    const { repository } = memoryFiles();
+    render(<App repository={repository} />);
+    await user.click(
+      screen.getByRole("button", { name: "Add savings source" }),
+    );
+    await user.type(screen.getByLabelText("Source name"), "Savings account");
+    const dialog = screen.getByRole("dialog");
+    expect(
+      within(dialog).queryByLabelText("First month to track"),
+    ).not.toBeInTheDocument();
+    await user.click(
+      within(dialog).getByRole("button", { name: "Add source" }),
+    );
+
+    fireEvent.change(screen.getByLabelText("Month"), {
+      target: { value: "2025-01" },
+    });
+    expect(
+      screen.getByLabelText("Savings account balance"),
+    ).toBeInTheDocument();
+  });
+
   it("opens historical data, compares complete months, filters sources, and corrects a snapshot", async () => {
     const user = userEvent.setup();
     const { repository, writes } = memoryFiles(sampleData());
@@ -117,8 +141,8 @@ describe("savings dashboard", () => {
       version: 1,
       currency: "EUR",
       sources: [
-        { id: "all", name: "Bank", startMonth: "2026-01" },
-        { id: "cash", name: "Cash", startMonth: "2026-01" },
+        { id: "all", name: "Bank" },
+        { id: "cash", name: "Cash" },
       ],
       snapshots: [
         {

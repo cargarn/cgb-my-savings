@@ -1,10 +1,10 @@
 import {
   actualTotal,
-  activeSources,
   money,
   monthlyChange,
   monthLabel,
   previousMonth,
+  sourcesForMonth,
   signedMoney,
   type SavingsData,
 } from "../model";
@@ -25,7 +25,6 @@ export default function HistoryTable({
 }) {
   const t = translator(language);
   const filtered = sourceId !== null;
-  const source = data.sources.find((item) => item.id === sourceId);
   return (
     <div className="table-scroll">
       <table>
@@ -67,7 +66,7 @@ export default function HistoryTable({
                 ? total - snapshot.predicted
                 : null;
             const entered = Object.keys(snapshot.balances).length;
-            const expected = activeSources(data, snapshot.month).length;
+            const expected = sourcesForMonth(data).length;
             return (
               <tr key={snapshot.month}>
                 <th scope="row">
@@ -76,9 +75,6 @@ export default function HistoryTable({
                     <small className="incomplete">
                       {t("enteredBalances", { entered, expected })}
                     </small>
-                  )}
-                  {filtered && source && source.startMonth > snapshot.month && (
-                    <small className="incomplete">{t("notTracked")}</small>
                   )}
                 </th>
                 <td className="table-amount">

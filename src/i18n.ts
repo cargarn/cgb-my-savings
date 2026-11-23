@@ -88,7 +88,6 @@ const en = {
   versusPrediction: "Vs. prediction",
   actions: "Actions",
   enteredBalances: "{entered}/{expected} balances entered",
-  notTracked: "Not tracked yet",
   incomplete: "Incomplete",
   notEntered: "Not entered",
   edit: "Edit",
@@ -99,7 +98,7 @@ const en = {
   yourBalances: "Your balances",
   addSource: "Add source",
   noSources:
-    "No sources for this month yet. Add one, or enter a prediction below.",
+    "No shared categories yet. Add one, or enter a prediction below.",
   balanceLabel: "{name} balance",
   balanceHelp:
     "Enter end-of-month balances, not deposits. Leave unknown balances blank; enter 0 for an empty account.",
@@ -116,9 +115,6 @@ const en = {
   closeSource: "Close add source",
   sourceName: "Source name",
   sourcePlaceholder: "e.g. Savings account",
-  firstMonth: "First month to track",
-  firstMonthHelp:
-    "This source is expected from this month onward. Earlier months will not be marked incomplete.",
   cancel: "Cancel",
   confirmOpen: "Discard unsaved changes and open another JSON file?",
   confirmMonth: "Discard the unapplied check-in changes and switch months?",
@@ -148,7 +144,6 @@ const en = {
   errorEmptyMonth: "Enter at least one balance or a predicted value.",
   errorSourceName: "Enter a name for your savings source.",
   errorDuplicateSource: "A source with that name already exists.",
-  errorFirstMonth: "Choose a valid first month.",
   errorOperation:
     "The operation failed. Your changes are still in this tab; please try again.",
   errorOperationDetails:
@@ -258,7 +253,6 @@ const es: Record<keyof typeof en, string> = {
   versusPrediction: "Frente a la previsión",
   actions: "Acciones",
   enteredBalances: "{entered}/{expected} saldos registrados",
-  notTracked: "Aún no se registraba",
   incomplete: "Incompleto",
   notEntered: "Sin registrar",
   edit: "Editar",
@@ -269,7 +263,7 @@ const es: Record<keyof typeof en, string> = {
   yourBalances: "Tus saldos",
   addSource: "Añadir origen",
   noSources:
-    "Aún no hay orígenes para este mes. Añade uno o introduce una previsión más abajo.",
+    "Aún no hay categorías compartidas. Añade una o introduce una previsión más abajo.",
   balanceLabel: "Saldo de {name}",
   balanceHelp:
     "Introduce saldos al cierre del mes, no aportaciones. Deja en blanco los saldos desconocidos; escribe 0 si la cuenta está vacía.",
@@ -287,9 +281,6 @@ const es: Record<keyof typeof en, string> = {
   closeSource: "Cerrar formulario de origen",
   sourceName: "Nombre del origen",
   sourcePlaceholder: "p. ej., Cuenta de ahorro",
-  firstMonth: "Primer mes que registrar",
-  firstMonthHelp:
-    "Este origen se tendrá en cuenta a partir de este mes. Los meses anteriores no se marcarán como incompletos.",
   cancel: "Cancelar",
   confirmOpen: "¿Descartar los cambios sin guardar y abrir otro archivo JSON?",
   confirmMonth:
@@ -320,7 +311,6 @@ const es: Record<keyof typeof en, string> = {
   errorEmptyMonth: "Introduce al menos un saldo o un valor previsto.",
   errorSourceName: "Introduce un nombre para tu origen de ahorro.",
   errorDuplicateSource: "Ya existe un origen con ese nombre.",
-  errorFirstMonth: "Elige un primer mes válido.",
   errorOperation:
     "La operación ha fallado. Tus cambios siguen en esta pestaña; inténtalo de nuevo.",
   errorOperationDetails:

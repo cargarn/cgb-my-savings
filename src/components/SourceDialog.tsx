@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { isMonth, type Source } from "../model";
+import type { Source } from "../model";
 import Icon from "./Icon";
 import { translator, type ErrorKey, type Language } from "../i18n";
 
 export default function SourceDialog({
-  month,
   sources,
   onAdd,
   onClose,
   language,
 }: {
-  month: string;
   sources: Source[];
   onAdd(source: Source): void;
   onClose(): void;
@@ -19,7 +17,6 @@ export default function SourceDialog({
   const t = translator(language);
   const dialog = useRef<HTMLDialogElement>(null);
   const [name, setName] = useState("");
-  const [startMonth, setStartMonth] = useState(month);
   const [error, setError] = useState<ErrorKey | null>(null);
   useEffect(() => {
     dialog.current?.showModal();
@@ -36,8 +33,7 @@ export default function SourceDialog({
     ) {
       return setError("errorDuplicateSource");
     }
-    if (!isMonth(startMonth)) return setError("errorFirstMonth");
-    onAdd({ id: crypto.randomUUID(), name: trimmed, startMonth });
+    onAdd({ id: crypto.randomUUID(), name: trimmed });
   }
 
   return (
@@ -66,17 +62,6 @@ export default function SourceDialog({
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
-        <label htmlFor="source-start">{t("firstMonth")}</label>
-        <input
-          id="source-start"
-          type="month"
-          min="1900-01"
-          max="9999-12"
-          required
-          value={startMonth}
-          onChange={(event) => setStartMonth(event.target.value)}
-        />
-        <p className="field-note">{t("firstMonthHelp")}</p>
         {error && (
           <p role="alert" className="inline-error">
             {t(error)}

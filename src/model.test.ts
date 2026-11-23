@@ -34,17 +34,31 @@ describe("monthly savings", () => {
     expect(previousMonth("2026-01")).toBe("2025-12");
   });
 
-  it("does not make historical snapshots incomplete when a later source is added", () => {
+  it("uses the shared source list for every month, including newly added sources in history", () => {
     const data = sampleData();
-    data.sources.push({ id: "fund", name: "Fund", startMonth: "2026-03" });
-    expect(actualTotal(data, data.snapshots[1])).toBe(33_000);
+    data.sources.push({ id: "fund", name: "Fund" });
+    expect(actualTotal(data, data.snapshots[1])).toBeNull();
     expect(
       actualTotal(data, {
-        month: "2026-03",
-        balances: { bank: 0, cash: 0 },
+        month: "2025-12",
+        balances: { bank: 0, cash: 0, fund: 100 },
         predicted: null,
       }),
-    ).toBeNull();
+    ).toBe(100);
+  });
+
+  it("reads legacy categories with a first month but makes them globally available", () => {
+    const data = sampleData();
+    const legacy = {
+      ...data,
+      sources: data.sources.map((source, index) => ({
+        ...source,
+        startMonth: index === 0 ? "2026-03" : "2026-01",
+      })),
+    };
+    const parsed = parseSavings(JSON.stringify(legacy));
+    expect(parsed.sources[0]).toEqual({ id: "bank", name: "Bank account" });
+    expect(parsed.snapshots[0].balances.bank).toBe(10_000);
   });
 
   it("replaces a monthly snapshot rather than duplicating it and sorts historical additions", () => {

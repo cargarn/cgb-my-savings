@@ -5,8 +5,8 @@ export function sampleData(): SavingsData {
     version: 1,
     currency: "EUR",
     sources: [
-      { id: "bank", name: "Bank account", startMonth: "2026-01" },
-      { id: "cash", name: "Cash", startMonth: "2026-01" },
+      { id: "bank", name: "Bank account" },
+      { id: "cash", name: "Cash" },
     ],
     snapshots: [
       {

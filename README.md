@@ -84,11 +84,10 @@ No hosting account, HTTPS address, or phone installation is created by the local
 ## First check-in
 
 1. Select the month in **Monthly check-in**.
-2. Use **+** beside the savings-source dropdown, or **Add source**, to add an account or another savings category.
-3. Choose the source's first month to track. It will be expected in monthly totals from that month onward, without affecting earlier months.
-4. Enter the end-of-month balance for each active source.
-5. Optionally enter **Predicted value**: one expected total across all sources for that month.
-6. Click **Add month** to apply the check-in, then **Save JSON** to choose a file and write your data to disk.
+2. Use **+** beside the savings-source dropdown, or **Add source**, to create a shared savings category. Existing categories are available in every month.
+3. Enter each category's end-of-month balance. Leave unknown balances blank.
+4. Optionally enter **Predicted value**: one expected total across all categories for that month.
+5. Click **Add month** to apply the check-in, then **Save JSON** to choose a file and write your data to disk.
 
 For later months, repeat the check-in and click **Save JSON** to update the connected file. Use **Edit** in the history to correct a month, or the editor's delete button to remove it. Corrections and deletions also need **Save JSON** to become permanent.
 
@@ -137,8 +136,7 @@ Amounts are stored as **integer cents** to avoid floating-point rounding in fina
   "sources": [
     {
       "id": "bank-account",
-      "name": "Savings account",
-      "startMonth": "2026-01"
+      "name": "Savings account"
     }
   ],
   "snapshots": [
@@ -153,7 +151,7 @@ Amounts are stored as **integer cents** to avoid floating-point rounding in fina
 }
 ```
 
-This example records an actual balance of EUR 25,000.00 and a predicted total of EUR 24,500.00. Use `null` for an unspecified prediction and omit a source's balance when it is unknown. Source IDs must be unique; each month can appear only once.
+This example records an actual balance of EUR 25,000.00 and a predicted total of EUR 24,500.00. Use `null` for an unspecified prediction and omit a source's balance when it is unknown. Categories are shared across all months; missing category balances make a month's total incomplete. Existing version 1 files with `startMonth` fields remain readable, but the field is no longer used. Source IDs must be unique; each month can appear only once.
 
 ## Tech stack
 

@@ -578,7 +578,6 @@ export default function App({
       </main>
       {addingSource && (
         <SourceDialog
-          month={selectedMonth}
           sources={data.sources}
           onAdd={addSource}
           onClose={() => setAddingSource(false)}
