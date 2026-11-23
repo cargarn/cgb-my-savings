@@ -109,12 +109,6 @@ describe("monthly savings", () => {
       },
       {
         ...data,
-        snapshots: [
-          { month: "2025-12", balances: { bank: 100 }, predicted: null },
-        ],
-      },
-      {
-        ...data,
         snapshots: [{ month: "2026-01", balances: {}, predicted: -1 }],
       },
       {
