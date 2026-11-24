@@ -4,6 +4,5 @@ dist/
 playwright-report/
 test-results/
 *.local
-savings*.json
 .secrets
 .env

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "currency": "EUR",
+  "sources": [
+    {
+      "id": "bank",
+      "name": "Bank account"
+    },
+    {
+      "id": "cash",
+      "name": "Cash"
+    },
+    {
+      "id": "investments",
+      "name": "Investments"
+    }
+  ],
+  "snapshots": [
+    {
+      "month": "2026-01",
+      "balances": {
+        "bank": 120000,
+        "cash": 50000,
+        "investments": 80000
+      },
+      "predicted": 255000
+    },
+    {
+      "month": "2026-02",
+      "balances": {
+        "bank": 125000,
+        "cash": 55000,
+        "investments": 82000
+      },
+      "predicted": 265000
+    },
+    {
+      "month": "2026-03",
+      "balances": {
+        "bank": 130000,
+        "cash": 60000,
+        "investments": 85000
+      },
+      "predicted": null
+    }
+  ]
+}
