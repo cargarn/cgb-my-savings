@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   actualTotal,
@@ -81,6 +82,16 @@ describe("monthly savings", () => {
 
   it("round-trips JSON, preserving predictions without actual balances", () => {
     expect(parseSavings(JSON.stringify(sampleData()))).toEqual(sampleData());
+  });
+
+  it("accepts the included savings example", () => {
+    const example = readFileSync("savings.example.json", "utf8");
+    expect(parseSavings(example)).toMatchObject({
+      version: 1,
+      currency: "EUR",
+      sources: expect.any(Array),
+      snapshots: expect.any(Array),
+    });
   });
 
   it("rejects malformed, incompatible, ambiguous, or unsafe financial files", () => {
