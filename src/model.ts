@@ -146,7 +146,7 @@ function validCents(value: unknown): value is number {
 export function parseSavings(text: string): SavingsData {
   let value: unknown;
   try {
-    value = JSON.parse(text);
+    value = JSON.parse(text.charCodeAt(0) === 0xfeff ? text.slice(1) : text);
   } catch {
     throw new AppError("errorInvalidJson");
   }

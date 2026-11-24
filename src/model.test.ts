@@ -82,6 +82,9 @@ describe("monthly savings", () => {
 
   it("round-trips JSON, preserving predictions without actual balances", () => {
     expect(parseSavings(JSON.stringify(sampleData()))).toEqual(sampleData());
+    expect(
+      parseSavings(`\uFEFF${JSON.stringify(sampleData())}`),
+    ).toEqual(sampleData());
   });
 
   it("accepts the included savings example", () => {
