@@ -857,6 +857,33 @@ dialog input {
   margin-top: 9px;
   margin-bottom: 20px;
 }
+dialog textarea {
+  display: block;
+  width: 100%;
+  min-height: 220px;
+  margin-top: 9px;
+  padding: 10px 12px;
+  border: 1px solid #e6e8f0;
+  border-radius: 7px;
+  background: #fff;
+  color: #505169;
+  font:
+    12px/1.5 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  resize: vertical;
+}
+dialog textarea:focus-visible {
+  outline: 3px solid #b2a7ff;
+  outline-offset: 3px;
+}
+.paste-json-description {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.6;
+  margin: -10px 0 17px;
+}
 .dialog-actions {
   display: flex;
   justify-content: flex-end;

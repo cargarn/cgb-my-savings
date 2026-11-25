@@ -112,6 +112,57 @@ describe("savings dashboard", () => {
     expect(writes[0].snapshots[1].balances.bank).toBe(12_000);
   });
 
+  it("imports pasted JSON and allows saving it as a new file", async () => {
+    const user = userEvent.setup();
+    const { repository, writes } = memoryFiles();
+    render(<App repository={repository} />);
+
+    await user.click(screen.getByRole("button", { name: "Paste JSON" }));
+    fireEvent.change(screen.getByLabelText("JSON content"), {
+      target: { value: JSON.stringify(sampleData()) },
+    });
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", {
+        name: "Import JSON",
+      }),
+    );
+
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Pasted JSON content. Save JSON to keep your changes.",
+    );
+    expect(
+      screen.getByRole("region", { name: "Savings overview" }),
+    ).toHaveTextContent("€330.00");
+    expect(screen.getByText(/Unsaved changes/)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Save JSON" }));
+    await screen.findByText("Saved to savings.json.");
+    expect(writes).toEqual([sampleData()]);
+  });
+
+  it("keeps the existing data unchanged when pasted JSON is invalid", async () => {
+    const user = userEvent.setup();
+    const { repository } = memoryFiles(sampleData());
+    render(<App repository={repository} />);
+
+    await user.click(screen.getByRole("button", { name: "Open JSON" }));
+    await screen.findByText("Opened savings.json.");
+    await user.click(screen.getByRole("button", { name: "Paste JSON" }));
+    await user.type(screen.getByLabelText("JSON content"), "not json");
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", {
+        name: "Import JSON",
+      }),
+    );
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "This file is not valid JSON",
+    );
+    expect(
+      screen.getByRole("region", { name: "Savings overview" }),
+    ).toHaveTextContent("€330.00");
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
   it("preserves drafts when adding a source and prevents saving unapplied values", async () => {
     const user = userEvent.setup();
     const { repository, writes } = memoryFiles();

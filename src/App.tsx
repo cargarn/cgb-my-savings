@@ -24,6 +24,7 @@ import {
 } from "./storage";
 import HistoryTable from "./components/HistoryTable";
 import Icon from "./components/Icon";
+import JsonPasteDialog from "./components/JsonPasteDialog";
 import MonthEditor from "./components/MonthEditor";
 import SourceDialog from "./components/SourceDialog";
 import PwaControls from "./components/PwaControls";
@@ -72,6 +73,7 @@ export default function App({
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [editorVersion, setEditorVersion] = useState(0);
   const [addingSource, setAddingSource] = useState(false);
+  const [pastingJson, setPastingJson] = useState(false);
   const editor = useRef<HTMLDivElement>(null);
   const complete = data.snapshots.filter(
     (snapshot) => actualTotal(data, snapshot) !== null,
@@ -180,6 +182,21 @@ export default function App({
     }
   }
 
+  function importPastedData(next: SavingsData): boolean {
+    if ((dirty || draftDirty) && !confirmAction(t("confirmImport")))
+      return false;
+    setData(next);
+    setFile(null);
+    setSourceId(null);
+    setSelectedMonth(next.snapshots.at(-1)?.month ?? currentMonth());
+    setEditorVersion((value) => value + 1);
+    setDraftDirty(false);
+    setDirty(true);
+    setError(null);
+    setNotice({ key: "jsonPasted", remindToSave: true });
+    return true;
+  }
+
   function addSource(source: Source) {
     changed(
       { ...data, sources: [...data.sources, source] },
@@ -285,6 +302,14 @@ export default function App({
               onClick={() => void fileAction("open")}
             >
               <Icon name="folder" size={17} /> {t("openJson")}
+            </button>
+            <button
+              type="button"
+              className="button secondary"
+              disabled={busy}
+              onClick={() => setPastingJson(true)}
+            >
+              {t("pasteJson")}
             </button>
             <button
               type="button"
@@ -568,7 +593,8 @@ export default function App({
         )}
         <footer>
           <span>
-            cgb-my-savings <span className="footer-divider">/</span>{" "}
+            &copy; {new Date().getFullYear()} Carlos Garnacho Benito{" "}
+            <span className="footer-divider">/</span>{" "}
             {t("footerTagline")}
           </span>
           <span>
@@ -581,6 +607,13 @@ export default function App({
           sources={data.sources}
           onAdd={addSource}
           onClose={() => setAddingSource(false)}
+          language={language}
+        />
+      )}
+      {pastingJson && (
+        <JsonPasteDialog
+          onImport={importPastedData}
+          onClose={() => setPastingJson(false)}
           language={language}
         />
       )}

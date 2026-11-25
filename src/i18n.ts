@@ -13,6 +13,13 @@ const en = {
   pageTitle: "A clearer picture of your savings",
   pageSubtitle: "See where you are, how far you've come, and what's ahead.",
   openJson: "Open JSON",
+  pasteJson: "Paste JSON",
+  pasteJsonTitle: "Paste your savings JSON",
+  pasteJsonDescription:
+    "Paste the contents of a cgb-my-savings JSON file below. Your data stays on this device.",
+  jsonContent: "JSON content",
+  importJson: "Import JSON",
+  closePasteJson: "Close paste JSON",
   saveJson: "Save JSON",
   working: "Working…",
   noFile: "No JSON file connected",
@@ -97,8 +104,7 @@ const en = {
   checkInSubtitle: "A little update. A bigger picture.",
   yourBalances: "Your balances",
   addSource: "Add source",
-  noSources:
-    "No shared categories yet. Add one, or enter a prediction below.",
+  noSources: "No shared categories yet. Add one, or enter a prediction below.",
   balanceLabel: "{name} balance",
   balanceHelp:
     "Enter end-of-month balances, not deposits. Leave unknown balances blank; enter 0 for an empty account.",
@@ -117,6 +123,7 @@ const en = {
   sourcePlaceholder: "e.g. Savings account",
   cancel: "Cancel",
   confirmOpen: "Discard unsaved changes and open another JSON file?",
+  confirmImport: "Discard unsaved changes and import pasted JSON?",
   confirmMonth: "Discard the unapplied check-in changes and switch months?",
   confirmDelete:
     "Delete all balances and the prediction for {month}? Save JSON afterward to make this permanent.",
@@ -124,6 +131,7 @@ const en = {
   monthUpdated: "{month} updated.",
   monthDeleted: "Month deleted.",
   fileOpened: "Opened {name}.",
+  jsonPasted: "Pasted JSON content.",
   fileSaved: "Saved to {name}.",
   saveReminder: "Save JSON to keep your changes.",
   errorApplyDraft:
@@ -176,6 +184,13 @@ const es: Record<keyof typeof en, string> = {
   pageSubtitle:
     "Descubre dónde estás, cuánto has avanzado y qué viene después.",
   openJson: "Abrir JSON",
+  pasteJson: "Pegar JSON",
+  pasteJsonTitle: "Pega el JSON de tus ahorros",
+  pasteJsonDescription:
+    "Pega debajo el contenido de un archivo JSON de cgb-my-savings. Tus datos permanecen en este dispositivo.",
+  jsonContent: "Contenido JSON",
+  importJson: "Importar JSON",
+  closePasteJson: "Cerrar pegar JSON",
   saveJson: "Guardar JSON",
   working: "Procesando…",
   noFile: "Ningún archivo JSON conectado",
@@ -283,6 +298,8 @@ const es: Record<keyof typeof en, string> = {
   sourcePlaceholder: "p. ej., Cuenta de ahorro",
   cancel: "Cancelar",
   confirmOpen: "¿Descartar los cambios sin guardar y abrir otro archivo JSON?",
+  confirmImport:
+    "¿Descartar los cambios sin guardar e importar el JSON pegado?",
   confirmMonth:
     "¿Descartar los cambios del registro sin aplicar y cambiar de mes?",
   confirmDelete:
@@ -291,6 +308,7 @@ const es: Record<keyof typeof en, string> = {
   monthUpdated: "Se ha actualizado {month}.",
   monthDeleted: "Mes eliminado.",
   fileOpened: "Se ha abierto {name}.",
+  jsonPasted: "Se ha pegado el contenido JSON.",
   fileSaved: "Guardado en {name}.",
   saveReminder: "Guarda el JSON para conservar tus cambios.",
   errorApplyDraft:
